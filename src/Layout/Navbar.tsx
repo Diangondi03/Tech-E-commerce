@@ -1,5 +1,5 @@
 import {Button, Navbar, NavbarBrand, NavbarContent, NavbarItem, Tooltip} from "@heroui/react";
-import Logo from "./assets/brand.png"
+import Logo from "../assets/brand.png"
 import { BsCart2 } from "react-icons/bs";
 import { MdOutlineDarkMode } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";

@@ -1,12 +1,10 @@
 
 import './App.css'
-import AppNavbar from './Navbar'
 
-function App() {
+function Home() {
 
   return (
-    <>
-      <AppNavbar/>
+    <div className='container mx-auto'>
       <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque quaerat dolore nisi commodi? Libero totam esse culpa dolorum exercitationem laborum amet necessitatibus, iure recusandae, dolor asperiores voluptatem fugiat reiciendis non.
       Quisquam, accusamus magni? In non ducimus quibusdam cumque beatae a, natus hic excepturi dolore veritatis iste deserunt molestias asperiores est vero maxime alias tenetur odit molestiae quidem dignissimos. Recusandae, ea.
       Nemo ipsa nisi quod, ab expedita sequi eligendi voluptate delectus pariatur! Minima tempora nulla error, aperiam odit quas dicta facilis laborum eveniet illo possimus repellat earum molestiae soluta obcaecati suscipit!
@@ -107,8 +105,8 @@ function App() {
       Sit sequi molestias quidem repudiandae distinctio alias ea tenetur quod saepe, nostrum qui sapiente excepturi at natus non. Illum non aliquid laborum! Autem quis repellat magnam inventore cum facere tempora?
       Laboriosam laudantium maiores unde ratione impedit fuga a cumque corporis quae temporibus officiis eum adipisci perspiciatis odit exercitationem, aliquid nihil sint at ad? Facere mollitia unde praesentium, ipsum porro exercitationem.
       Harum fugiat explicabo corrupti suscipit officia minus cupiditate accusamus nulla. Molestiae totam numquam temporibus reprehenderit non culpa iure aut odio, optio eligendi! A voluptates vitae reprehenderit voluptas debitis architecto sunt?</p>
-    </>
+    </div>
   )
 }
 
-export default App
+export default Home
