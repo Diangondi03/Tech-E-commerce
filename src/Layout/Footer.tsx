@@ -33,7 +33,7 @@ const Footer = () => {
             className="font-semibold cursor-pointer">
                 <div className="flex flex-col gap-2">
                     {info.links.map((link, index) => (
-                        <a key={index} className="hover:underline cursor-pointer ml-4">{link}</a>
+                        <a key={index} className="hover:underline cursor-pointer ml-4 font-normal">{link}</a>
                     ))}
                 </div>
             </AccordionItem>
