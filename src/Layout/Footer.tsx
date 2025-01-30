@@ -12,7 +12,7 @@ const additionalInfo = [
 const Footer = () => {
   return (
     <>
-    <div className="hidden md:flex w-full py-8 bg-gray-600 text-white text-center">
+    <div className="hidden md:flex w-full py-8 bg-gray-500 text-white text-center">
         <div className="container mx-auto flex flex-col md:flex-row justify-around">
             {additionalInfo.map((info, index) => (
                 <div key={index} className="flex flex-col gap-2">
