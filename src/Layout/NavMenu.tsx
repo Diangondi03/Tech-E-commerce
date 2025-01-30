@@ -1,17 +1,19 @@
 import { NavbarMenu, NavbarMenuItem } from "@heroui/react";
 import { Link } from "react-router";
 
-const categories = ["TV","Audio","Laptop","Mobile","Gaming","Appliances"]
+import { categories } from "../categories";
 
-
-const NavMenu = () => {
+const NavMenu = ({setIsMenuOpen}) => {
     return (
         <NavbarMenu className="mt-10 p-10">
         {categories.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`} className="py-2">
             <Link
               className="w-full text-xl"
-              to="#"
+              to={`/category/${item}`}
+              onClick={()=>{
+                setIsMenuOpen(false)
+              }}
             >
               {item}
             </Link>

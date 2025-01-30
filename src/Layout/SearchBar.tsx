@@ -17,7 +17,7 @@ const SearchBar = () => {
         e.preventDefault()
         if(search.length>0){
             console.log(search.length)
-            navigate("/search/"+search)
+            navigate("/search?q="+search)
         } 
     }
     

@@ -6,7 +6,9 @@ const Layout = () => {
   return (
     <>
         <AppNavbar/>
-        <Outlet/>
+        <div className='container mx-auto min-h-screen '>
+          <Outlet/>
+        </div>
         <Footer/>
     
     </>

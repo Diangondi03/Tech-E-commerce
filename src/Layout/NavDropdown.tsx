@@ -2,8 +2,7 @@ import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, NavbarIt
 import { BiChevronDown } from "react-icons/bi"
 import { Link } from "react-router"
 
-const categories = ["TV","Audio","Laptop","Mobile","Gaming","Appliances"]
-
+import { categories } from "../categories"
 
 const NavDropdown = () => {
   return (
