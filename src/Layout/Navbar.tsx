@@ -40,7 +40,7 @@ export default function AppNavbar() {
 
     
     return (
-        <Navbar className="bg-blue-200 dark:bg-near-black shadow-md py-6 md:py-2" isMenuOpen={isMenuOpen} onMenuOpenChange={()=>{setIsMenuOpen(!isMenuOpen)}}>
+        <Navbar className="bg-purple-200 dark:bg-near-black shadow-md py-6 md:py-2" isMenuOpen={isMenuOpen} onMenuOpenChange={()=>{setIsMenuOpen(!isMenuOpen)}}>
             
             <div className="container flex flex-col md:flex-row items-center">
 
@@ -69,7 +69,7 @@ export default function AppNavbar() {
 
                             <Button isIconOnly className="rounded-full cursor-pointer" onPress={Icon.action}>
 
-                                <Icon.icon size={20} className="text-gray-900 dark:text-neutral-200"/>
+                                <Icon.icon size={20} className="text-gray-900 dark:text-neutral-200 hover:text-black dark:hover:text-white"/>
                             </Button>
                         </Tooltip>
                     </NavbarItem>

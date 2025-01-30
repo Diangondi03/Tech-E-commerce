@@ -1,9 +1,14 @@
 import { useParams } from "react-router"
 import { categories } from "../categories"
 import Error from "./Error"
+import { useEffect } from "react"
 
 const Category = () => {
   const {categoryType} = useParams()
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   if(!categories.includes(categoryType)){
     return <Error/>
