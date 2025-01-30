@@ -1,4 +1,4 @@
-import {Button, Navbar, NavbarBrand, NavbarContent, NavbarItem, Tooltip} from "@heroui/react";
+import {Button, Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, Tooltip} from "@heroui/react";
 import Logo from "../assets/brand.png"
 import { BsCart2 } from "react-icons/bs";
 import { MdOutlineDarkMode,MdOutlineLightMode } from "react-icons/md";
@@ -7,7 +7,7 @@ import { FaRegUser } from "react-icons/fa";
 import SearchBar from "./SearchBar";
 import { Link } from "react-router";
 import { useEffect, useState } from "react";
-
+import NavDropdown from "./NavDropdown";
 
 
 export default function AppNavbar() {
@@ -37,19 +37,24 @@ export default function AppNavbar() {
 
     
     return (
-        <Navbar className="shadow-md dark:bg-near-black py-6 sm:py-2 " shouldHideOnScroll>
+        <Navbar className="bg-blue-200 dark:bg-near-black shadow-md py-6 md:py-2" shouldHideOnScroll>
             
-            <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between">
+            <div className="container flex flex-col md:flex-row items-center">
 
-            <div className="w-full flex">
+            <div className="w-full flex items-center ">
+                    <NavbarMenuToggle className="lg:hidden text-gray-900 dark:text-white mr-4"/>
+                    <NavbarBrand>
+                        <Link to={"/"}>
+                            <img src={Logo} className="max-h-10"/>
+                        </Link>
+                    </NavbarBrand>
+                <NavbarContent justify="start" className="ml-4">
 
-                <NavbarBrand>
-                    <Link to={"/"}>
-                        <img src={Logo} className="max-h-10"/>
-                    </Link>
-                </NavbarBrand>
+                <NavDropdown/>
+                    
+                </NavbarContent>
 
-                    <NavbarContent justify="center" className="flex-grow hidden sm:flex">
+                    <NavbarContent justify="center" className="flex-grow   hidden md:flex ">
 
                         <SearchBar/>
                     </NavbarContent>
@@ -61,14 +66,14 @@ export default function AppNavbar() {
 
                             <Button isIconOnly className="rounded-full cursor-pointer" onPress={Icon.action}>
 
-                                <Icon.icon size={24} className="text-gray-900 dark:text-neutral-200"/>
+                                <Icon.icon size={20} className="text-gray-900 dark:text-neutral-200"/>
                             </Button>
                         </Tooltip>
                     </NavbarItem>
                     ))}
                 </NavbarContent>
             </div>
-            <div className="w-full rounded-xl overflow-hidden sm:hidden mt-2">
+            <div className="w-full rounded-xl overflow-hidden md:hidden mt-2">
                 <SearchBar/>
             </div>
             </div>

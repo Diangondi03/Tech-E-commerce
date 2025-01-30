@@ -23,11 +23,11 @@ const SearchBar = () => {
     
 
     return (
-        <div className="w-full rounded-xl overflow-hidden mx-2">
+        <div className="w-full md:w-3/4 rounded-xl overflow-hidden mx-2">
             <form onSubmit={handleSearch}>
 
                 <Input
-                    className="bg-gray-100 rounded-xl" 
+                    className="bg-gray-100 rounded-xl text-black" 
                     value={search}
                     onChange={handleChange} 
                     placeholder="What can we help you find?" 
