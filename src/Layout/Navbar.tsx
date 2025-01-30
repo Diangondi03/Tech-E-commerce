@@ -8,10 +8,13 @@ import SearchBar from "./SearchBar";
 import { Link } from "react-router";
 import { useEffect, useState } from "react";
 import NavDropdown from "./NavDropdown";
+import NavMenu from "./NavMenu";
 
 
 export default function AppNavbar() {
     const [isDark,setIsDark] = useState<boolean | null>(null)
+    const [isMenuOpen,setIsMenuOpen] = useState<boolean>(false)
+
     useEffect(()=>{
         const isItemDark = localStorage.getItem("theme") == '1'
         setIsDark(isItemDark)
@@ -37,12 +40,12 @@ export default function AppNavbar() {
 
     
     return (
-        <Navbar className="bg-blue-200 dark:bg-near-black shadow-md py-6 md:py-2" shouldHideOnScroll>
+        <Navbar className="bg-blue-200 dark:bg-near-black shadow-md py-6 md:py-2" shouldHideOnScroll isMenuOpen={isMenuOpen} onMenuOpenChange={()=>{setIsMenuOpen(!isMenuOpen)}}>
             
             <div className="container flex flex-col md:flex-row items-center">
 
             <div className="w-full flex items-center ">
-                    <NavbarMenuToggle className="lg:hidden text-gray-900 dark:text-white mr-4"/>
+                    <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} className="md:hidden text-gray-900 dark:text-white mr-4 cursor-pointer"/>
                     <NavbarBrand>
                         <Link to={"/"}>
                             <img src={Logo} className="max-h-10"/>
@@ -77,6 +80,8 @@ export default function AppNavbar() {
                 <SearchBar/>
             </div>
             </div>
+
+            <NavMenu/>
         </Navbar>
     );
 }

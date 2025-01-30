@@ -12,7 +12,7 @@ const NavDropdown = () => {
         <DropdownTrigger>
             <Button
             disableRipple
-            className="hidden lg:flex p-0 bg-transparent data-[hover=true]:bg-transparent px-2"
+            className="hidden md:flex p-0 bg-transparent data-[hover=true]:bg-transparent px-2"
             endContent={<BiChevronDown/>}
             radius="sm"
             variant="light"
