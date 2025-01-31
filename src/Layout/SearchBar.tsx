@@ -1,11 +1,13 @@
 import { Input } from "@heroui/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { IoIosSearch } from "react-icons/io"
-import { useNavigate } from "react-router"
+import { useLocation, useNavigate } from "react-router"
 
 const SearchBar = () => {
 
     const [search, setSearch] = useState("")
+    const location = useLocation();
+
 
     const navigate = useNavigate()
 
@@ -19,6 +21,13 @@ const SearchBar = () => {
             navigate("/search?q="+search)
         } 
     }
+
+    useEffect(()=>{
+        if(location.pathname!='/search'){
+            setSearch("")
+        }
+    },[location.pathname])
+    
     
 
     return (

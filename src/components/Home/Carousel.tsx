@@ -1,4 +1,3 @@
-"use client"
 
 import { useEffect, useState } from "react"
 import { BiChevronRight,BiChevronLeft } from "react-icons/bi"
