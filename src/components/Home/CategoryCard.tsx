@@ -21,7 +21,7 @@ export default function CategoryCard({ image, name }: ProductCategoryCardProps) 
         
         <Image src={image} alt={name} className="z-0 h-[400px] "/>
         <div className="absolute inset-0 bg-black opacity-0  hover:opacity-25 duration-500"></div>
-            <CardFooter className=" absolute bottom-0 w-full bg-purple-300 text-black bg-opacity-50 p-4">
+            <CardFooter className=" absolute bottom-0 w-full bg-purple-400 text-black bg-opacity-50 p-4">
                 <h1 className="text-2xl font-bold text-center w-full">{name}</h1>
             </CardFooter>
         </Card>

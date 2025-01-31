@@ -4,5 +4,9 @@
 
 @theme {
     --color-near-black: #0d0d0d;
-
+    --color-dark-gray:#0c0c0c;
   }
+
+.dark img{
+  filter: brightness(.8) contrast(1.2);
+}
