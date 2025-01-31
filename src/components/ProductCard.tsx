@@ -40,8 +40,8 @@ export default function ProductCard({ imageUrl, title, price, discountPercentage
       onClick={handleClick}
       className="max-w-sm sm:mx-auto overflow-hidden bg-white dark:bg-dark-gray rounded-lg cursor-pointer shadow-md hover:shadow-xl transition duration-300 ease-in-out h-full"
     >
-      <div className="relative aspect-[4/3] w-full">
-        <Image src={imageUrl} alt={title} className="w-full h-full object-cover transition-filter duration-300 dark:filter dark:contrast-75" />
+      <div className="relative w-full">
+        <Image src={imageUrl} alt={title} className="w-full h-full aspect-[4/3] object-cover transition-filter duration-300 dark:filter dark:contrast-75" />
         {discountPercentage > 0 && (
           <div className="absolute z-10 top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">
             {discountPercentage}%

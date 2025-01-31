@@ -16,7 +16,7 @@ const SearchResults = () => {
     }
 
     return (
-        <h1 className='text-center font-bold text-2xl'>{searchQuery}</h1>
+        <h1 className='font-bold text-center text-4xl my-6'>{searchQuery}</h1>
     )
 }
 

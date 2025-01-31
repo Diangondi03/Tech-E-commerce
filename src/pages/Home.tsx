@@ -35,14 +35,14 @@ function Home() {
   return (
     <>
       <Carousel/>
-      <h1 className='font-bold text-center text-4xl my-16'>Products</h1>
+      <h2 className='font-bold text-center text-4xl my-16'>Products</h2>
       <div className='grid grid-cols-1 md:grid-cols-2  gap-8'>
         {categories.map((category,index) => (
           <CategoryCard key={index} image={images[index]} name={category}/>
         ))}
 
       </div>
-      <h1 className='font-bold text-center text-4xl my-16'>Trending</h1>
+      <h2 className='font-bold text-center text-4xl my-16'>Trending</h2>
 
 
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 p-6">
