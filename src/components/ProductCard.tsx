@@ -1,8 +1,7 @@
-"use client"
 
 import { useState } from "react"
 import { Card, Image, Button } from "@heroui/react"
-import { BiMinus,BiPlus,BiCart } from "react-icons/bi"
+import { BiMinus, BiPlus, BiCart } from "react-icons/bi"
 import { useNavigate } from "react-router"
 
 interface ProductCardProps {
@@ -13,7 +12,7 @@ interface ProductCardProps {
   id: string
 }
 
-export default function ProductCard({ imageUrl, title, price, discountPercentage,id }: ProductCardProps) {
+export default function ProductCard({ imageUrl, title, price, discountPercentage, id }: ProductCardProps) {
   const [quantity, setQuantity] = useState(0)
 
   const navigate = useNavigate()
@@ -32,16 +31,19 @@ export default function ProductCard({ imageUrl, title, price, discountPercentage
     setQuantity((prev) => (prev > 0 ? prev - 1 : 0))
   }
 
-  const handleClick = ()=>{
+  const handleClick = () => {
     navigate(`/product/${id}`)
   }
 
   return (
-    <Card onMouseUp={handleClick}  className="max-w-sm sm:mx-auto overflow-hidden bg-white dark:bg-dark-gray rounded-lg cursor-pointer shadow-md hover:shadow-xl transition duration-300 ease-in-out">
+    <div
+      onClick={handleClick}
+      className="max-w-sm sm:mx-auto overflow-hidden bg-white dark:bg-dark-gray rounded-lg cursor-pointer shadow-md hover:shadow-xl transition duration-300 ease-in-out h-full"
+    >
       <div className="relative aspect-[4/3] w-full">
-        <Image src={imageUrl} alt={title} className="object-cover " />
+        <Image src={imageUrl} alt={title} className="w-full h-full object-cover transition-filter duration-300 dark:filter dark:contrast-75" />
         {discountPercentage > 0 && (
-          <div className="absolute z-10 top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-md text-sm font-bold">
+          <div className="absolute z-10 top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">
             {discountPercentage}%
           </div>
         )}
@@ -52,10 +54,13 @@ export default function ProductCard({ imageUrl, title, price, discountPercentage
         </h3>
         <div className="space-y-1">
           <div className="flex items-center justify-between">
-            <span className="text-2xl font-bold text-purple-950 dark:text-purple-300">${discountPercentage ? discountedPrice.toFixed(2) : price.toFixed(2)}</span>
-            {discountPercentage > 0 && <span className="text-sm text-gray-500 line-through">${price.toFixed(2)}</span>}
+            <span className="text-2xl font-bold text-purple-950 dark:text-purple-300">
+              ${discountPercentage ? discountedPrice.toFixed(2) : price.toFixed(2)}
+            </span>
+            {discountPercentage > 0 && (
+              <span className="text-sm text-gray-500 line-through">${price.toFixed(2)}</span>
+            )}
           </div>
-
         </div>
         {quantity === 0 ? (
           <Button className="w-full cursor-pointer bg-near-black text-white dark:bg-neutral-300 dark:text-black" onPress={handleAddToCart}>
@@ -74,7 +79,6 @@ export default function ProductCard({ imageUrl, title, price, discountPercentage
           </div>
         )}
       </div>
-    </Card>
+    </div>
   )
 }
-
