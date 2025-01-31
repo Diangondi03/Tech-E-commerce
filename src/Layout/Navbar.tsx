@@ -48,7 +48,7 @@ export default function AppNavbar() {
                     <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} className="md:hidden text-gray-900 dark:text-white mr-4 cursor-pointer"/>
                     <NavbarBrand>
                         <Link to={"/"}>
-                            <img src={Logo} className="max-h-10"/>
+                            <img src={Logo} className="min-w-20 min-h-6 max-h-10"/>
                         </Link>
                     </NavbarBrand>
                 <NavbarContent justify="start" className="ml-4">
