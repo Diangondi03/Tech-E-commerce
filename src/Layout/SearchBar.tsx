@@ -16,7 +16,6 @@ const SearchBar = () => {
     const handleSearch=(e:React.ChangeEvent<HTMLInputElement>)=>{
         e.preventDefault()
         if(search.length>0){
-            console.log(search.length)
             navigate("/search?q="+search)
         } 
     }
@@ -31,6 +30,7 @@ const SearchBar = () => {
                     value={search}
                     onChange={handleChange} 
                     placeholder="What can we help you find?" 
+                    onClear={()=>setSearch("")}
                     isClearable startContent={<IoIosSearch/>}
                 />
             </form>
