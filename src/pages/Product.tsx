@@ -22,14 +22,14 @@ export default function Product() {
     <div className="container mx-auto px-4 py-8">
       <div className="grid md:grid-cols-2 gap-8">
         <div className="md:sticky md:top-24">
-          <div className="relative overflow-hidden rounded-lg bg-gray-400">
-            <span className="absolute min-w-md  inset-0 flex justify-center items-center">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-gray-400">
+            <span className="absolute inset-0 flex justify-center items-center">
                 <CgUnavailable className="text-4xl text-white" />
             </span>
             <Image
               src={product?.image}
               alt={product?.name}
-              className="w-full min-w-md h-full object-center z-10 aspect-[4/3] object-cover"
+              className="w-full h-full object-center z-10 aspect-[4/3] object-cover"
             />
           </div>
         </div>
