@@ -10,14 +10,13 @@ export default function Product() {
     const {productId} = useParams()
     const { product, loading } = useProduct(productId)
 
-    const discountedPrice = product?.price * (1 - product?.discount / 100)
-    const capitalizedBrand = product?.brand.charAt(0).toUpperCase() + product?.brand.slice(1)
+    const discountedPrice : number | undefined = product?.price * (1 - product?.discount / 100)
+    const capitalizedBrand : string | undefined = product?.brand.charAt(0).toUpperCase() + product?.brand.slice(1)
 
 
     useEffect(() => {
         window.scrollTo(0, 0)
-    }
-    , [])
+    }, [])
 
     if (loading) {
       return <div className="container mx-auto text-center px-4 py-8">Loading...</div>
@@ -40,7 +39,7 @@ export default function Product() {
         </div>
         <div className="flex flex-col justify-between">
           <div>
-            <h1 className="text-3xl font-bold mb-2">{product?.name}</h1>
+            <h1 className="text-3xl font-bold mb-2">{product?.title}</h1>
             <p className="mb-4">Brand: {capitalizedBrand}</p>
             <div className="flex items-baseline mb-4">
               <span className="text-2xl font-semibold text-purple-950 dark:text-purple-300">
