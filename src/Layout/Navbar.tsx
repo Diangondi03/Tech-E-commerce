@@ -5,7 +5,7 @@ import { MdOutlineDarkMode,MdOutlineLightMode } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
 
 import SearchBar from "./SearchBar";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import NavDropdown from "./NavDropdown";
 import NavMenu from "./NavMenu";
@@ -15,6 +15,8 @@ export default function AppNavbar() {
     const [isDark,setIsDark] = useState<boolean | null>(null)
     const [isMenuOpen,setIsMenuOpen] = useState<boolean>(false)
 
+    const navigate = useNavigate()
+
     useEffect(()=>{
         const isItemDark = localStorage.getItem("theme") == '1'
         setIsDark(isItemDark)
@@ -22,7 +24,7 @@ export default function AppNavbar() {
 
     
     const Icons = [
-        {icon:BsCart2, tooltip:"Cart",action:()=>{}}, 
+        {icon:BsCart2, tooltip:"Cart",action:()=>{navigate("/cart")}}, 
         {icon:isDark ? MdOutlineLightMode : MdOutlineDarkMode, tooltip:"Dark Mode",action:()=>{
             const theme : string | null = localStorage.getItem("theme")
             document.querySelector("html")?.classList.toggle("dark")

@@ -1,1 +1,1 @@
-export const categories = ["TV","Audio","Laptop","Mobile","Gaming","Appliances"]
+export const categories = ["TV","Audio","Mobile","Laptop","Gaming","Appliances"]

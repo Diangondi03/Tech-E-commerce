@@ -2,6 +2,7 @@
 import { useState } from "react"
 import { Card, Image, Button } from "@heroui/react"
 import { BiMinus, BiPlus, BiCart } from "react-icons/bi"
+import { CgUnavailable } from "react-icons/cg";
 import { useNavigate } from "react-router"
 
 interface ProductCardProps {
@@ -41,9 +42,12 @@ export default function ProductCard({ imageUrl, title, price, discountPercentage
       className="max-w-sm sm:mx-auto overflow-hidden bg-white dark:bg-dark-gray rounded-lg cursor-pointer shadow-md hover:shadow-xl transition duration-300 ease-in-out h-full"
     >
       <div className="relative w-full">
-        <Image src={imageUrl} alt={title} className="w-full h-full aspect-[4/3] object-cover transition-filter duration-300 dark:filter dark:contrast-75" />
+        <span className="w-full min-w-sm h-full aspect-[4/3] bg-gray-400 absolute z-0 flex justify-center items-center">
+        <CgUnavailable className="text-4xl text-white"/>
+        </span>
+        <Image src={imageUrl} alt={title} className="w-full min-w-sm h-full aspect-[4/3] object-cover transition-filter duration-300 dark:filter dark:contrast-75" />
         {discountPercentage > 0 && (
-          <div className="absolute z-10 top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">
+          <div className="absolute z-10 top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold border-1">
             {discountPercentage}%
           </div>
         )}

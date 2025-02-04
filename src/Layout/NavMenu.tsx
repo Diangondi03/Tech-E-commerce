@@ -7,13 +7,11 @@ const NavMenu = ({setIsMenuOpen}) => {
     return (
         <NavbarMenu className="mt-10 p-10">
         {categories.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`} className="py-2">
+          <NavbarMenuItem key={`${item}-${index}`} className="py-2 w-full bg-red-100" onClick={()=>setIsMenuOpen(false)}>
             <Link
               className="w-full text-xl"
               to={`/category/${item}`}
-              onClick={()=>{
-                setIsMenuOpen(false)
-              }}
+
             >
               {item}
             </Link>

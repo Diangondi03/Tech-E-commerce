@@ -6,6 +6,7 @@ import Layout from './Layout/Layout.tsx'
 import Home from './pages/Home.tsx'
 import SearchResults from './pages/SearchResults.tsx'
 import Category from './pages/Category.tsx'
+import Cart from './Layout/Cart.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
@@ -14,6 +15,7 @@ createRoot(document.getElementById('root')!).render(
       <Route index element={<Home />} />
       <Route path='/category/:categoryType' element={<Category/>}/>
       <Route path='/search' element={<SearchResults/>}/>
+      <Route path='/cart' element={<Cart/>}/>
     </Route>
     <Route path="*" element={<Error />} />
   </Routes>

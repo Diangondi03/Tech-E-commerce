@@ -21,14 +21,6 @@ function Home() {
   
   const {products,loading} = useTrending()
 
-  useEffect(()=>{
-
-    const theme  = localStorage.getItem("theme")
-    const html = document.querySelector("html")
-    if(theme=='1'){
-      html?.classList.add("dark")
-    }
-  },[])
 
 
 
