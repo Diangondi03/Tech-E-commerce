@@ -12,9 +12,6 @@ const SearchResults = () => {
 
     const {filteredProducts,loading} = useSearch(searchQuery)
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
 
     if(searchQuery?.length==0){
         navigate("/")

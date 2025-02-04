@@ -11,10 +11,6 @@ const Category = () => {
   
   const {products,loading} = useCategory(categoryType)
   
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   if(!categories.includes(categoryType)){
     return <Error/>
   }

@@ -1,19 +1,25 @@
-import { Outlet } from "react-router"
+import { Outlet, useLocation } from "react-router"
 import AppNavbar from "./Navbar"
 import Footer from "./Footer"
 import { useEffect } from "react"
 
 const Layout = () => {
 
-    useEffect(()=>{
-  
-      const theme  = localStorage.getItem("theme")
-      const html = document.querySelector("html")
-      if(theme=='1'){
-        html?.classList.add("dark")
-      }
-    },[])
-  
+  const location = useLocation();
+
+
+  useEffect(()=>{
+
+    const theme  = localStorage.getItem("theme")
+    const html = document.querySelector("html")
+    if(theme=='1'){
+      html?.classList.add("dark")
+    }
+  },[])
+
+  useEffect(()=>{
+    window.scrollTo(0, 0)
+  },[location])
 
   return (
     <>

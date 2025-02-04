@@ -14,10 +14,6 @@ export default function Product() {
     const capitalizedBrand : string | undefined = product?.brand.charAt(0).toUpperCase() + product?.brand.slice(1)
 
 
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [])
-
     if (loading) {
       return <div className="container mx-auto text-center px-4 py-8">Loading...</div>
     }
