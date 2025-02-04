@@ -37,7 +37,7 @@ export default function AppNavbar() {
                 setIsDark(true)
             }
         }}, 
-        {icon:FaRegUser, tooltip:"Profile",action:()=>{}}
+        {icon:FaRegUser, tooltip:"Profile",action:()=>{navigate("/user")}}
     ]
 
     

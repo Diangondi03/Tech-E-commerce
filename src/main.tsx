@@ -8,6 +8,9 @@ import SearchResults from './pages/SearchResults.tsx'
 import Category from './pages/Category.tsx'
 import Cart from './pages/Cart.tsx'
 import Product from './pages/Product.tsx'
+import Login from './pages/Login.tsx'
+import Signup from './pages/Signup.tsx'
+import UserInfo from './pages/UserInfo.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
@@ -18,7 +21,10 @@ createRoot(document.getElementById('root')!).render(
       <Route path='/search' element={<SearchResults/>}/>
       <Route path='/cart' element={<Cart/>}/>
       <Route path='/product/:productId' element={<Product/>}/>
+      <Route path='/user' element={<UserInfo/>}/>
     </Route>
+    <Route path='login' element={<Login />} />
+    <Route path='signup' element={<Signup />} />
     <Route path="*" element={<Error />} />
   </Routes>
   </BrowserRouter>
