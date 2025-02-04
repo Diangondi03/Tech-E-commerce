@@ -1,7 +1,6 @@
 import { useParams } from "react-router"
 import { categories } from "../categories"
 import Error from "./Error"
-import { useEffect } from "react"
 import ProductCardSkeleton from "../components/ProductCardSkeleton"
 import { useCategory } from "../hooks/UseCategory"
 import ProductCard from "../components/ProductCard"
@@ -11,8 +10,8 @@ const Category = () => {
   
   const {products,loading} = useCategory(categoryType)
   
-  if(!categories.includes(categoryType)){
-    return <Error/>
+    if(!categories.includes(categoryType)){
+      return <Error/>
   }
   
   return (

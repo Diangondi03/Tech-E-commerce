@@ -60,7 +60,7 @@ export default function CartItem({ product,setTotal }) {
           <span className="font-semibold">${(product.discountedPrice*quantity).toFixed(2)}</span>
         </div>
         <div className="flex justify-end md:absolute md:right-6">
-          <button className="text-red-600 hover:text-red-800 transition duration-200">
+          <button className="text-red-600 hover:text-red-800 transition duration-200 cursor-pointer">
             <BiTrash className="w-5 h-5" />
           </button>
         </div>

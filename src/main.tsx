@@ -6,7 +6,7 @@ import Layout from './Layout/Layout.tsx'
 import Home from './pages/Home.tsx'
 import SearchResults from './pages/SearchResults.tsx'
 import Category from './pages/Category.tsx'
-import Cart from './Layout/Cart.tsx'
+import Cart from './pages/Cart.tsx'
 import Product from './pages/Product.tsx'
 
 createRoot(document.getElementById('root')!).render(
