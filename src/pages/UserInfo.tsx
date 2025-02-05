@@ -1,39 +1,45 @@
 "use client"
 
 import { Button, Input } from "@heroui/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useUserInfo } from "../hooks/useUserInfo"
+import { dbAxiosInstance } from "../axiosConfig"
+import { getUserId } from "../getUserId"
 import { useNavigate } from "react-router"
 
 export default function UserInfo() {
-  const [user, setUser] = useState({
-    name: "John Doe",
-    email: "john@example.com",
-    password: "",
-  })
-  const [error, setError] = useState<string | null>(null)
-  const [success, setSuccess] = useState<string | null>(null)
+  const userInfo = useUserInfo().user
+  const [user, setUser] = useState({name: "", email: "", password: ""})
+  const userId = getUserId()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    setUser({...userInfo,password:""})
+  }
+  , [userInfo])
+   
+  const [error, setError] = useState<string | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser({ ...user, [e.target.name]: e.target.value })
   }
 
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError(null)
-    setSuccess(null)
     try {
-      // Here you would typically send the updated user data to your backend
-      // For demonstration, we'll simulate an error sometimes
-      if (Math.random() < 0.3) {
-        throw new Error("Failed to update profile. Please try again.")
-      }
-      setSuccess("Profile updated successfully!")
-      // Reset password field after submission
-      setUser({ ...user, password: "" })
+
+      await dbAxiosInstance.put(`update-user/${userId}`,user)
+      window.location.reload()
     } catch (err) {
       setError(err instanceof Error ? err.message : "An unexpected error occurred")
     }
+  }
+
+  const handleLogOut = async () => {
+    localStorage.removeItem("token")
+    navigate("/login")
   }
 
   return (
@@ -46,14 +52,7 @@ export default function UserInfo() {
               <span className="block sm:inline">{error}</span>
             </div>
           )}
-          {success && (
-            <div
-              className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
-              role="alert"
-            >
-              <span className="block sm:inline">{success}</span>
-            </div>
-          )}
+
           <div className="mb-4">
             <label className="block text-gray-700 dark:text-gray-400 text-sm font-bold mb-2" htmlFor="name">
               Name
@@ -63,8 +62,9 @@ export default function UserInfo() {
               type="text"
               placeholder="Name"
               name="name"
-              value={user.name}
+              value={user?.name}
               onChange={handleChange}
+              
               required
             />
           </div>
@@ -77,7 +77,7 @@ export default function UserInfo() {
               type="email"
               placeholder="Email"
               name="email"
-              value={user.email}
+              value={user?.email}
               onChange={handleChange}
               required
             />
@@ -93,11 +93,12 @@ export default function UserInfo() {
               name="password"
               value={user.password}
               onChange={handleChange}
+              validate={value => (value.length >= 8 || value.length===0) || "Password must be at least 8 characters long"}
             />
           </div>
           <div className="flex items-center justify-between">
             <Button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full cursor-pointer"
               type="submit"
             >
               Update Profile
@@ -105,6 +106,14 @@ export default function UserInfo() {
           </div>
         </form>
       </div>
+        <div className="text-center">
+            <Button 
+            onPress={handleLogOut}
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer">
+            Log out
+            </Button>
+        </div>
+        
     </div>
   )
 }

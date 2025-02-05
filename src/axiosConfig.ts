@@ -2,5 +2,9 @@ import axios from 'axios';
 
 
 export const axiosInstance = axios.create({
-  baseURL: 'https://fakestoreapi.in/api/', // Replace with your API base URL
+  baseURL: 'https://fakestoreapi.in/api/', 
+});
+
+export const dbAxiosInstance = axios.create({
+  baseURL: 'http://localhost:3000/', 
 });

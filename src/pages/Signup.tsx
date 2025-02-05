@@ -1,8 +1,9 @@
 "use client"
 
-import { Button, Input } from "@heroui/react"
-import { useState } from "react"
+import { Button, form, Input } from "@heroui/react"
+import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router"
+import { dbAxiosInstance } from "../axiosConfig"
 
 export default function Signup() {
   const [user, setUser] = useState({
@@ -21,18 +22,24 @@ export default function Signup() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError(null) 
+    if(user.password.length < 8){
+      setError("Password must be at least 8 characters long")
+      return
+    }
+
     try {
 
-      if (Math.random() < 0.5) {
-        throw new Error("Registration failed. Please try again.")
-      }
-      console.log("Registering user:", user)
-      // Simulate successful registration
+      await dbAxiosInstance.post("signup", user,{withCredentials:true})
       navigate("/login")
     } catch (err) {
       setError(err instanceof Error ? err.message : "An unexpected error occurred")
     }
   }
+
+  useEffect(() => {
+    const html = document.querySelector("html")
+    html?.classList.remove("dark")
+  }, [])
 
   return (
     <div className="container mx-auto py-8 p-9">
@@ -56,6 +63,11 @@ export default function Signup() {
               value={user.name}
               onChange={handleChange}
               required
+              validate={(value) => {
+                if (value.length < 8) {
+                  return "Name must be at least 3 characters long";
+                }
+              }}
             />
           </div>
           <div className="mb-4">
@@ -70,6 +82,7 @@ export default function Signup() {
               value={user.email}
               onChange={handleChange}
               required
+              
             />
           </div>
           <div className="mb-6">
@@ -84,11 +97,16 @@ export default function Signup() {
               value={user.password}
               onChange={handleChange}
               required
+              validate={(value) => {
+                if (value.length < 8) {
+                  return "Password must be at least 8 characters long";
+                }
+              }}
             />
           </div>
           <div className="flex items-center justify-between">
             <Button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full cursor-pointer"
               type="submit"
             >
               Sign Up

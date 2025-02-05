@@ -1,7 +1,8 @@
 
 import { Button, Input } from "@heroui/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router"
+import { dbAxiosInstance } from "../axiosConfig"
 
 export default function Login() {
   const [credentials, setCredentials] = useState({
@@ -20,17 +21,18 @@ export default function Login() {
     e.preventDefault()
     setError(null) 
     try {
-
-      if (Math.random() < 0.5) {
-        throw new Error("Invalid email or password. Please try again.")
-      }
-      console.log("Logging in with:", credentials)
-      // Simulate successful login
+      const res = await dbAxiosInstance.post("login", credentials)
+      localStorage.setItem("token", res.data.token)
       navigate("/")
     } catch (err) {
       setError(err instanceof Error ? err.message : "An unexpected error occurred")
     }
   }
+
+  useEffect(() => {
+    const html = document.querySelector("html")
+    html?.classList.remove("dark")
+  }, [])
 
   return (
     <div className="container mx-auto py-8 p-9">
@@ -52,6 +54,7 @@ export default function Login() {
             name="email"
             placeholder="Email"
             value={credentials.email}
+            type="email"
             onChange={handleChange}
             required
 
@@ -73,7 +76,7 @@ export default function Login() {
           </div>
           <div className="flex items-center justify-between">
             <Button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full cursor-pointer"
               type="submit"
             >
               Log In
