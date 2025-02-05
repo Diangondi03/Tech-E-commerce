@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { axiosInstance } from "../axiosConfig";
 
 export const useSearch = (searchTerm:string|null)=>{
-    const [products,setProducts] = useState([])
+    const [products,setProducts] = useState(null)
     const [loading,setLoading] = useState(true)
     const [filteredProducts,setFilteredProducts] = useState([])
     
@@ -19,7 +19,7 @@ export const useSearch = (searchTerm:string|null)=>{
 
     useEffect(()=>{
         setLoading(true)
-        if(searchTerm){
+        if(searchTerm && products){
             const fuse = new Fuse(products,{
                 keys:['title','brand','category','description','color'],
                 threshold:0.3

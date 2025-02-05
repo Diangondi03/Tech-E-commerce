@@ -10,7 +10,7 @@ export const useUserInfo = ()=>{
     useEffect(()=>{
         const fetchUserInfo = async()=>{
             const res = await dbAxiosInstance.get(`get-user/${userId}`)
-            setUser(res.data)
+            setUser({name:res.data.name,email:res.data.email})
         }
         fetchUserInfo()
     },[])

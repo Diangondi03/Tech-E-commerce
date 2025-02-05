@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
 const jwt = require("jsonwebtoken")
+const verifyToken = require('./authMiddleware');
 
 const app = express();
 const port = 3000;
@@ -99,7 +100,7 @@ app.post('/login', async (req, res) => {
 
 
 // Define a route to get a user by ID
-app.get('/get-user/:id', async (req, res) => {
+app.get('/get-user/:id',verifyToken, async (req, res) => {
   const userId = req.params.id;
 
   try {
@@ -109,7 +110,6 @@ app.get('/get-user/:id', async (req, res) => {
       res.status(404).send('User not found');
     } else {
       const userData = doc.data();
-      delete userData.hashedPassword; // Remove the hashed password
       res.send(userData);
     }
   } catch (error) {
@@ -142,7 +142,7 @@ app.put('/update-user/:id', async (req, res) => {
 
 
 // Define a route to add a product to the cart
-app.post('/add-product', async (req, res) => {
+app.post('/add-product',verifyToken, async (req, res) => {
   const { userId, productId } = req.body;
 
   try {
@@ -171,7 +171,7 @@ app.post('/add-product', async (req, res) => {
 });
 
 // Define a route to remove a product from the cart
-app.post('/remove-product', async (req, res) => {
+app.post('/remove-product',verifyToken, async (req, res) => {
   const { userId, productId } = req.body;
 
   try {
@@ -194,9 +194,9 @@ app.post('/remove-product', async (req, res) => {
 });
 
 // Define a route to update the quantity of a product in the cart
-app.post('/update-product-quantity', async (req, res) => {
+app.post('/update-product-quantity',verifyToken, async (req, res) => {
   const { userId, productId, quantity } = req.body;
-
+  console.log(userId, productId, quantity)
   try {
     const userRef = db.collection('users').doc(userId);
     const userDoc = await userRef.get();
@@ -229,7 +229,7 @@ app.post('/update-product-quantity', async (req, res) => {
 });
 
 // Define a route to purchase the cart and clear it
-app.post('/purchase', async (req, res) => {
+app.post('/purchase',verifyToken, async (req, res) => {
   const { userId } = req.body;
 
   try {

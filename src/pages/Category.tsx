@@ -4,12 +4,22 @@ import Error from "./Error"
 import ProductCardSkeleton from "../components/ProductCardSkeleton"
 import { useCategory } from "../hooks/UseCategory"
 import ProductCard from "../components/ProductCard"
+import { useEffect, useState } from "react"
+import { useCart } from "../hooks/useCart"
 
 const Category = () => {
   const {categoryType} = useParams()
+  const userCart = useCart().cart
+  const loadingCart = useCart().loading
+  const [cart,setCart] = useState(userCart)
+
+  useEffect(()=>{
+    setCart(userCart)
+  },[userCart])
   
   const {products,loading} = useCategory(categoryType)
-  
+
+
     if(!categories.includes(categoryType)){
       return <Error/>
   }
@@ -18,11 +28,11 @@ const Category = () => {
     <>
     <h1 className='text-center text-4xl my-6'>{categoryType}</h1>
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 p-6">
-      {loading && Array.from({length: 3}).map((_,index)=>(
+      {(loading && loadingCart) && Array.from({length: 3}).map((_,index)=>(
         <ProductCardSkeleton/>
       ))}
 
-      {!loading && products.map((product,index)=>(
+      {(!loading && !loadingCart) && products.map((product,index)=>(
         <ProductCard 
         key={index}
         imageUrl={product?.image}
@@ -30,6 +40,7 @@ const Category = () => {
         price={product?.price}
         discountPercentage={product?.discount}
         id={product?.id}
+        quantity={cart.find(item=>item?.productId===product?.id)?.quantity || 0}
         />
       ))}
     </div>

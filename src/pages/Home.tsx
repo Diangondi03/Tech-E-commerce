@@ -1,5 +1,5 @@
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Carousel from '../components/Home/Carousel'
 import TV2 from '../assets/tv2.webp'
 import Audio from '../assets/audio.jpg'
@@ -16,12 +16,19 @@ import { categories } from '../categories'
 import { useTrending } from '../hooks/useTrending'
 import ProductCard from '../components/ProductCard'
 import ProductCardSkeleton from '../components/ProductCardSkeleton'
+import { useCart } from '../hooks/useCart'
 
 function Home() {
   
   const {products,loading} = useTrending()
 
+  const userCart = useCart().cart
+  const loadingCart = useCart().loading
+  const [cart,setCart] = useState(userCart)
 
+  useEffect(()=>{
+    setCart(userCart)
+  },[userCart])
 
 
   return (
@@ -38,10 +45,10 @@ function Home() {
 
 
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 p-6">
-        {loading && Array.from({length: 10}).map((_,index)=>(
+        {loading && loadingCart && Array.from({length: 10}).map((_,index)=>(
           <ProductCardSkeleton/>
         ))}
-        {!loading && products.map((product,index)=>(
+        {!loading && !loadingCart && products.map((product,index)=>(
           <ProductCard 
           key={index}
           imageUrl={product?.image}
@@ -49,6 +56,7 @@ function Home() {
           price={product?.price}
           discountPercentage={product?.discount}
           id={product?.id}
+          quantity={cart.find(item=>item?.productId===product?.id)?.quantity || 0}
           />
         ))}
       </div>

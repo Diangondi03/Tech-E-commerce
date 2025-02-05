@@ -3,7 +3,8 @@ import AddToCartButton from "../components/AddToCartButton"
 import { useProduct } from "../hooks/useProduct"
 import { Image } from "@heroui/react"
 import { CgUnavailable } from "react-icons/cg"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import { useCart } from "../hooks/useCart"
 
 
 export default function Product() {
@@ -12,12 +13,18 @@ export default function Product() {
 
     const discountedPrice : number | undefined = product?.price * (1 - product?.discount / 100)
     const capitalizedBrand : string | undefined = product?.brand.charAt(0).toUpperCase() + product?.brand.slice(1)
+    const userCart = useCart().cart
+    const loadingCart = useCart().loading
+    const [cart,setCart] = useState(userCart)
+  
+    useEffect(()=>{
+      setCart(userCart)
+    },[userCart])
 
-
-    if (loading) {
+    if (loading && loadingCart) {
       return <div className="container mx-auto text-center px-4 py-8">Loading...</div>
     }
-
+  if(!loading && !loadingCart){
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid md:grid-cols-2 gap-8">
@@ -54,10 +61,11 @@ export default function Product() {
               
             </div>
           </div>
-          <AddToCartButton productId={productId} />
+          <AddToCartButton productId={productId} quantity={cart.find(item=>item?.productId===product?.id)?.quantity || 0}/>
         </div>
       </div>
     </div>
   )
+}
 }
 

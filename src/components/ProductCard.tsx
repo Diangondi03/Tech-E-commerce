@@ -8,15 +8,15 @@ interface ProductCardProps {
   title: string
   price: number
   discountPercentage: number
-  id: number
+  id: number,
+  quantity:number
 }
 
-export default function ProductCard({ imageUrl, title, price, discountPercentage, id }: ProductCardProps) {
+export default function ProductCard({ imageUrl, title, price, discountPercentage, id,quantity }: ProductCardProps) {
 
   const navigate = useNavigate()
 
   const discountedPrice = price * (1 - discountPercentage / 100)
-
 
 
   const handleClick = () => {
@@ -54,7 +54,7 @@ export default function ProductCard({ imageUrl, title, price, discountPercentage
           </div>
         </div>
 
-        <AddToCartButton productId={id} />
+        <AddToCartButton productId={id} quantity={quantity}/>
 
       </div>
     </div>

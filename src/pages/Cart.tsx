@@ -1,21 +1,47 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import CartItem from "../components/Cart/CartItem"
+import { useCart } from "../hooks/useCart"
+import { useProduct } from "../hooks/useProduct"
+import { Button } from "@heroui/react"
+import { dbAxiosInstance } from "../axiosConfig"
+import { getUserId } from "../getUserId"
 
-const dummyProducts = [
-  { id: 1, name: "Smartphone X", price: 999, discountedPrice: 899, quantity: 2, imageUrl: "/placeholder.svg" },
-  { id: 2, name: "Wireless Earbuds", price: 199, discountedPrice: 179, quantity: 1, imageUrl: "/placeholder.svg" },
-  { id: 3, name: "Laptop Pro", price: 1499, discountedPrice: 1399, quantity: 1, imageUrl: "/placeholder.svg" },
-]
 
 export default function Cart() {
-  const [total,setTotal] = useState(dummyProducts.reduce((acc, product) => acc + product.discountedPrice * product.quantity, 0))
+  const userCart = useCart().cart
+  const {loading} = useCart()
+  const [cart, setCart] = useState([])
 
+  useEffect(() => {
+    setCart(userCart)
+  }, [userCart])
+
+  const total = cart.reduce((acc, item) => {
+    return acc + (item.discount ? item.price*(1-item.discount/100) : item.price) * item.quantity
+  }
+  , 0)
+
+  const purchase = async () => {
+    const userId = getUserId()
+    const res = await dbAxiosInstance.post('purchase',{userId})
+    if(res.status===200){
+      setCart([])
+    }
+  }
+
+
+  if (loading) {
+    return <p></p>
+  }
+  if(!loading && cart?.length === 0){
+    return <h2 className="text-center text-bold text-2xl">Your cart is empty</h2>
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Your Cart</h1>
       <div className="bg-white shadow-md rounded-lg overflow-hidden dark:bg-near-black">
-        <div className="p-4 border-b hidden md:block">
+        <div className="p-4 border-b border-neutral-300 hidden md:block">
           <div className="grid grid-cols-12 gap-4 font-semibold text-sm uppercase">
             <div className="col-span-6">Product</div>
             <div className="col-span-2">Price</div>
@@ -23,17 +49,17 @@ export default function Cart() {
             <div className="col-span-2">Subtotal</div>
           </div>
         </div>
-        {dummyProducts.map((product) => (
-          <CartItem key={product.id} product={product} setTotal={setTotal}/>
+        {cart.length>0 &&  cart.map((cartItem) => (
+          <CartItem key={cartItem?.productId} product={cartItem} setCart={setCart}/>
         ))}
-        <div className="p-4 border-t flex flex-col ">
+        <div className="p-4 border-t border-neutral-300 flex flex-col ">
           <div className="flex justify-between items-center">
             <span className="font-semibold text-lg">Total:</span>
             <span className="font-bold text-2xl">${total.toFixed(2)}</span>
           </div>
-          <button className="mt-4 self-end font-bold bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200">
+          <Button onPress={purchase} className="mt-4 self-end font-bold bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-200 cursor-pointer">
             Proceed to Checkout
-          </button>
+          </Button>
         </div>
       </div>
     </div>
