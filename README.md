@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -48,3 +49,10 @@ export default tseslint.config({
   },
 })
 ```
+=======
+# Tech-E-commerce
+Ecommerce built in React with TypeScript, Tailwind and HeroUI components. Product data is fetched from FakeStore API, users are stored in a Firebase Database
+Users can add or remove products, they will be stored in their own cart
+Products can be searched by a search term or category
+Design is competely responsive
+>>>>>>> 9ac27fc5e9d6aac8c4c330f78264586c39426f55
