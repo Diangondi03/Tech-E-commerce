@@ -7,7 +7,6 @@ const Layout = () => {
 
   const location = useLocation();
 
-
   useEffect(()=>{
 
     const theme : string | null  = localStorage.getItem("theme")

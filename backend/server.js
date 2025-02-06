@@ -44,7 +44,6 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-// Define a route to add a user with the enforced schema
 app.post('/signup', async (req, res) => {
   const { name,email, password } = req.body;
   try {
@@ -58,7 +57,6 @@ app.post('/signup', async (req, res) => {
   }
 });
 
-// Define a route to log in a user
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -99,7 +97,6 @@ app.post('/login', async (req, res) => {
 });
 
 
-// Define a route to get a user by ID
 app.get('/get-user/:id',verifyToken, async (req, res) => {
   const userId = req.params.id;
 
@@ -118,7 +115,6 @@ app.get('/get-user/:id',verifyToken, async (req, res) => {
   }
 });
 
-// Define a route to update a user by ID
 app.put('/update-user/:id',verifyToken, async (req, res) => {
   const userId = req.params.id;
   const { name,email, password } = req.body;
@@ -141,7 +137,6 @@ app.put('/update-user/:id',verifyToken, async (req, res) => {
 });
 
 
-// Define a route to add a product to the cart
 app.post('/add-product',verifyToken, async (req, res) => {
   const { userId, productId } = req.body;
 
@@ -170,7 +165,6 @@ app.post('/add-product',verifyToken, async (req, res) => {
   }
 });
 
-// Define a route to remove a product from the cart
 app.post('/remove-product',verifyToken, async (req, res) => {
   const { userId, productId } = req.body;
 
@@ -193,7 +187,6 @@ app.post('/remove-product',verifyToken, async (req, res) => {
   }
 });
 
-// Define a route to update the quantity of a product in the cart
 app.post('/update-product-quantity',verifyToken, async (req, res) => {
   const { userId, productId, quantity } = req.body;
   console.log(userId, productId, quantity)
@@ -246,9 +239,6 @@ app.post('/purchase',verifyToken, async (req, res) => {
       return res.status(400).send('Cart is empty');
     }
 
-    // Here you would handle the purchase logic, e.g., processing payment
-
-    // Clear the cart after purchase
     await userRef.update({ cart: [] });
     res.status(200).send('Purchase successful and cart cleared');
   } catch (error) {

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { axiosInstance } from "../axiosConfig";
 import { Product } from "../types";
 
-
 export const useProduct = (productId: string | undefined) => {
     const [product, setProduct] = useState<Product | null >(null);
     const [loading, setLoading] = useState<boolean>(true);

@@ -6,8 +6,6 @@ import { CgUnavailable } from "react-icons/cg"
 import { useEffect, useState } from "react"
 import { useCart } from "../hooks/useCart"
 
-
-
 export default function Product() {
     const {productId} = useParams()
     const { product, loading } = useProduct(productId)

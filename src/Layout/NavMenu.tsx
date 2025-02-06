@@ -2,7 +2,6 @@ import { NavbarMenu, NavbarMenuItem } from "@heroui/react";
 import { Link } from "react-router";
 
 import { categories } from "../categories";
-
 interface NavMenuProps {
     setIsMenuOpen: (val:boolean)=>void
 }

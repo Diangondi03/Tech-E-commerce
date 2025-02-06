@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react'
 import Carousel from '../components/Home/Carousel'
 import TV2 from '../assets/tv2.webp'

@@ -27,8 +27,6 @@ const SearchBar = () => {
             setSearch("")
         }
     },[location.pathname])
-    
-    
 
     return (
         <div className="w-full md:w-3/4 rounded-xl overflow-hidden mx-2">

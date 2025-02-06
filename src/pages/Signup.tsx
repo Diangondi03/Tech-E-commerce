@@ -1,5 +1,3 @@
-"use client"
-
 import { Button, Input } from "@heroui/react"
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router"

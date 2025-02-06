@@ -2,13 +2,9 @@ import { useEffect, useState } from "react"
 import { axiosInstance } from "../axiosConfig"
 import { Product } from "../types"
 
-
-
 export const useCategory = (category:string|undefined)=>{
     const [products,setProducts] = useState<Product[] | []>([])
     const [loading,setLoading] = useState<boolean>(true)
-    
-
 
     useEffect(()=>{
         setLoading(true)
@@ -19,5 +15,6 @@ export const useCategory = (category:string|undefined)=>{
         }
         fetchCategoryProducts()
     },[category])
+    
     return {products,loading}
 }

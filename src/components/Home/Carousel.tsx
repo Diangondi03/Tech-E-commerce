@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react"
 import { BiChevronRight,BiChevronLeft } from "react-icons/bi"
 import Iphone from "../../assets/iphone.avif"
@@ -37,19 +36,20 @@ export default function Carousel() {
         src={images[currentIndex]}
         className="w-full h-full duration-500  object-cover rounded-md"
       />
-      {/* Left Arrow */}
+
       <div className="absolute top-1/2 left-4 -translate-y-1/2">
         <button onClick={prevSlide} className="p-2 bg-black/20 text-white rounded-full hover:bg-black/30 transition cursor-pointer">
           <BiChevronLeft size={24} />
         </button>
       </div>
-      {/* Right Arrow */}
+
       <div className="absolute top-1/2 right-4 -translate-y-1/2">
         <button onClick={nextSlide} className="p-2 bg-black/20 text-white rounded-full hover:bg-black/30 transition cursor-pointer">
           <BiChevronRight size={24} />
         </button>
       </div>
-      {/* Dots */}
+
+
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
         {images.map((_, index) => (
           <button

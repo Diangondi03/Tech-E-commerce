@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import NavDropdown from "./NavDropdown";
 import NavMenu from "./NavMenu";
 
-
 export default function AppNavbar() {
     const [isDark,setIsDark] = useState<boolean | null>(null)
     const [isMenuOpen,setIsMenuOpen] = useState<boolean>(false)

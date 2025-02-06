@@ -5,8 +5,6 @@ import { Product } from "../types"
 export const useTrending = ()=>{
     const [products,setProducts] = useState<Product[] | []>([])
     const [loading,setLoading] = useState<boolean>(true)
-    
-
 
     useEffect(()=>{
         const fetchTrendingProducts = async()=>{

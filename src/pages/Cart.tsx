@@ -7,7 +7,6 @@ import { getUserId } from "../getUserId"
 import { useNavigate } from "react-router"
 import { CartItem as CartItemType } from "../types" 
 
-
 export default function Cart() {
   const userCart: CartItemType[] | [] = useCart().cart
   const {loading} = useCart()
@@ -18,7 +17,6 @@ export default function Cart() {
   if(!token){
     navigate('/login')
   }
-
 
   useEffect(() => {
     setCart(userCart)
@@ -39,7 +37,6 @@ export default function Cart() {
       navigate("/login")
     }
   }
-
 
   if (loading) {
     return <p></p>

@@ -7,8 +7,6 @@ export const useSearch = (searchTerm:string|null)=>{
     const [products,setProducts] = useState<Product[] | null>(null)
     const [loading,setLoading] = useState<boolean>(true)
     const [filteredProducts,setFilteredProducts] = useState<Product[] | []>([])
-    
-
 
     useEffect(()=>{
         const fetchCategoryProducts = async()=>{

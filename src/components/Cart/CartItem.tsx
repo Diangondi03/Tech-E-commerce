@@ -1,12 +1,9 @@
-import { useState } from "react"
 import { BiMinus,BiPlus,BiTrash } from "react-icons/bi"
-import { useProduct } from "../../hooks/useProduct"
 import { Link, useNavigate } from "react-router"
 import { CgUnavailable } from "react-icons/cg"
 import { getUserId } from "../../getUserId"
 import { dbAxiosInstance } from "../../axiosConfig"
 import { Product } from "../../types"
-import { CartItem as CartItemType } from "../../types"
 
 interface CartItemProps {
   product: Product | any;
@@ -15,8 +12,8 @@ interface CartItemProps {
 
 export default function CartItem({product,setCart}:CartItemProps) {
   const navigate = useNavigate()
-  const userId = getUserId()
-  const token = localStorage.getItem("token")
+  const userId : string | null = getUserId()
+  const token : string | null = localStorage.getItem("token")
 
   const discountedPrice : number = product && (product?.price*(1-(product?.discount ? product?.discount : 0)/100)).toFixed(2)
 
