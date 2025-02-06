@@ -6,12 +6,13 @@ import { useCategory } from "../hooks/UseCategory"
 import ProductCard from "../components/ProductCard"
 import { useEffect, useState } from "react"
 import { useCart } from "../hooks/useCart"
+import { CartItem } from "../types"
 
 const Category = () => {
   const {categoryType} = useParams()
-  const userCart = useCart().cart
-  const loadingCart = useCart().loading
-  const [cart,setCart] = useState(userCart)
+  const userCart : CartItem[] | [] = useCart().cart
+  const loadingCart : boolean = useCart().loading
+  const [cart,setCart] = useState<CartItem[] | []>(userCart)
 
   useEffect(()=>{
     setCart(userCart)
@@ -20,7 +21,7 @@ const Category = () => {
   const {products,loading} = useCategory(categoryType)
 
 
-    if(!categories.includes(categoryType)){
+    if(categoryType && !categories.includes(categoryType)){
       return <Error/>
   }
   
@@ -29,7 +30,7 @@ const Category = () => {
     <h1 className='text-center text-4xl my-6'>{categoryType}</h1>
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 p-6">
       {(loading || loadingCart) && Array.from({length: 3}).map((_,index)=>(
-        <ProductCardSkeleton/>
+        <ProductCardSkeleton key={index}/>
       ))}
 
       {(!loading && !loadingCart) && products.map((product,index)=>(

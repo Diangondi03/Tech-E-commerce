@@ -46,7 +46,7 @@ function Home() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 p-6">
         {(loading || loadingCart) && Array.from({length: 10}).map((_,index)=>(
-          <ProductCardSkeleton/>
+          <ProductCardSkeleton key={index}/>
         ))}
         {!loading && !loadingCart && products.map((product,index)=>(
           <ProductCard 

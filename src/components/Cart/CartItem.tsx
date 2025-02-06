@@ -5,13 +5,20 @@ import { Link, useNavigate } from "react-router"
 import { CgUnavailable } from "react-icons/cg"
 import { getUserId } from "../../getUserId"
 import { dbAxiosInstance } from "../../axiosConfig"
+import { Product } from "../../types"
+import { CartItem as CartItemType } from "../../types"
 
-export default function CartItem({product,setCart}) {
+interface CartItemProps {
+  product: Product | any;
+  setCart: any;
+}
+
+export default function CartItem({product,setCart}:CartItemProps) {
   const navigate = useNavigate()
   const userId = getUserId()
   const token = localStorage.getItem("token")
 
-  const discountedPrice = (product?.price*(1-product?.discount/100)).toFixed(2)
+  const discountedPrice : number = product && (product?.price*(1-(product?.discount ? product?.discount : 0)/100)).toFixed(2)
 
   //type = true for increase, false for decrease
   const updateQuantity = async (type:boolean)=>{
@@ -25,14 +32,14 @@ export default function CartItem({product,setCart}) {
       
       if(!type && product?.quantity===1){
 
-      setCart(prev=>prev.filter(item=>item.productId!==product?.id))
-      await removeProduct()
-      return
+        setCart(({prev}:any)=> prev.filter(({item}:any)=> item.productId !== product?.id))
+        await removeProduct()
+        return
     }
 
       if(product?.quantity<=100){
-        setCart(prev=>{
-          return prev.map(item=>{
+        setCart(({prev}:any)=>{
+          return prev.map(({item}:any)=>{
                 if(item.productId === product?.id){
                     return {...item,quantity:type?product?.quantity+1:product?.quantity-1}
                 }
@@ -59,7 +66,7 @@ export default function CartItem({product,setCart}) {
     }
     try{
 
-      setCart(prev=>prev.filter(item=>item.productId!==product?.id))
+      setCart(({prev}:any)=>prev.filter(({item}:any)=>item.productId!==product?.id))
       const res = await dbAxiosInstance.post('remove-product',{userId,productId:product?.id})
       if(res.status===403 || res.status===401){
         navigate("/login")

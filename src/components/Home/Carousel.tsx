@@ -9,17 +9,17 @@ import TV from "../../assets/tv.webp"
 const images = [Iphone,PS5,TV]
 
 export default function Carousel() {
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState<number>(0)
 
   const prevSlide = () => {
-    const isFirstSlide = currentIndex === 0
-    const newIndex = isFirstSlide ? images.length - 1 : currentIndex - 1
+    const isFirstSlide : boolean = currentIndex === 0
+    const newIndex : number = isFirstSlide ? images.length - 1 : currentIndex - 1
     setCurrentIndex(newIndex)
   }
 
   const nextSlide = () => {
-    const isLastSlide = currentIndex === images.length - 1
-    const newIndex = isLastSlide ? 0 : currentIndex + 1
+    const isLastSlide :boolean = currentIndex === images.length - 1
+    const newIndex : number = isLastSlide ? 0 : currentIndex + 1
     setCurrentIndex(newIndex)
   }
 

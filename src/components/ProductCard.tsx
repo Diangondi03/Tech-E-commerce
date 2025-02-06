@@ -7,7 +7,7 @@ interface ProductCardProps {
   imageUrl: string
   title: string
   price: number
-  discountPercentage: number
+  discountPercentage: number | undefined
   id: number,
   quantity:number
 }
@@ -16,7 +16,7 @@ export default function ProductCard({ imageUrl, title, price, discountPercentage
 
   const navigate = useNavigate()
 
-  const discountedPrice = price * (1 - discountPercentage / 100)
+  const discountedPrice : number = discountPercentage ? price * (1 - discountPercentage / 100) : 0
 
 
   const handleClick = () => {
@@ -33,7 +33,7 @@ export default function ProductCard({ imageUrl, title, price, discountPercentage
         <CgUnavailable className="text-4xl text-white"/>
         </span>
         <Image src={imageUrl} alt={title} className="w-full min-w-sm h-full aspect-[4/3] object-cover transition-filter duration-300 dark:filter dark:contrast-75" />
-        {discountPercentage > 0 && (
+        {discountPercentage && (
           <div className="absolute z-10 top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold border-1">
             {discountPercentage}%
           </div>
@@ -48,7 +48,7 @@ export default function ProductCard({ imageUrl, title, price, discountPercentage
             <span className="text-2xl font-bold text-purple-950 dark:text-purple-300">
               ${discountPercentage ? discountedPrice.toFixed(2) : price.toFixed(2)}
             </span>
-            {discountPercentage > 0 && (
+            {discountPercentage && (
               <span className="text-sm text-gray-500 line-through">${price.toFixed(2)}</span>
             )}
           </div>

@@ -1,8 +1,6 @@
 import { Button } from '@heroui/react'
-import { use } from 'framer-motion/client'
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { BiCart, BiMinus, BiPlus } from 'react-icons/bi'
-import { useCart } from '../hooks/useCart'
 import { dbAxiosInstance } from '../axiosConfig'
 import { getUserId } from '../getUserId'
 import { useNavigate } from 'react-router'
@@ -13,10 +11,10 @@ type AddToCartButtonProps = {
 }
 
 const AddToCartButton = ({productId,quantity}:AddToCartButtonProps) => {
-    const [productQuantity, setProductQuantity] = useState(quantity)
-    const userId = getUserId()
+    const [productQuantity, setProductQuantity] = useState<number>(quantity)
+    const userId : string | null = getUserId()
     const navigate = useNavigate()
-    const token = localStorage.getItem("token")
+    const token : string | null = localStorage.getItem("token")
 
     const handleAddToCart = async() => {
         if(!token){
@@ -36,7 +34,7 @@ const AddToCartButton = ({productId,quantity}:AddToCartButtonProps) => {
         }
     }
     //type == true ? increment : decrement
-    const updateQuantity = async(type) => {
+    const updateQuantity = async(type:boolean) => {
         if(!token){
             navigate("/login")
             return

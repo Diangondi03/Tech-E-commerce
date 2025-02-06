@@ -4,8 +4,13 @@ import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router"
 import { dbAxiosInstance } from "../axiosConfig"
 
+interface Credentials {
+  email: string
+  password: string
+}
+
 export default function Login() {
-  const [credentials, setCredentials] = useState({
+  const [credentials, setCredentials] = useState<Credentials>({
     email: "",
     password: "",
   })

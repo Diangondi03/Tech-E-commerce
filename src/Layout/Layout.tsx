@@ -10,7 +10,7 @@ const Layout = () => {
 
   useEffect(()=>{
 
-    const theme  = localStorage.getItem("theme")
+    const theme : string | null  = localStorage.getItem("theme")
     const html = document.querySelector("html")
     if(theme=='1'){
       html?.classList.add("dark")

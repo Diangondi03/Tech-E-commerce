@@ -7,16 +7,22 @@ import { dbAxiosInstance } from "../axiosConfig"
 import { getUserId } from "../getUserId"
 import { useNavigate } from "react-router"
 
+interface User {
+  name: string
+  email: string
+  password: string
+}
+
 export default function UserInfo() {
   const userInfo = useUserInfo().user
-  const [user, setUser] = useState({name: "", email: "", password: ""})
-  const userId = getUserId()
+  const [user, setUser] = useState<User>({name: "", email: "", password: ""})
+  const userId : string | null = getUserId()
   const navigate = useNavigate()
-  const token = localStorage.getItem("token")
+  const token : string | null = localStorage.getItem("token")
 
 
   useEffect(() => {
-    setUser({...userInfo,password:""})
+    setUser(({prev}:any)=>({...prev,...userInfo}))
   }
   , [userInfo])
    

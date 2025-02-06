@@ -2,10 +2,11 @@ import { useEffect, useState } from "react"
 import { dbAxiosInstance } from "../axiosConfig"
 import { getUserId } from "../getUserId"
 import { useNavigate } from "react-router"
+import { User } from "../types"
 
 export const useUserInfo = ()=>{
-    const [user,setUser] = useState([])
-    const userId = getUserId()
+    const [user,setUser] = useState<User | []>([])
+    const userId : string | null = getUserId()
     const navigate = useNavigate()
 
     if(!userId){

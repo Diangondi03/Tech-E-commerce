@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import { axiosInstance } from "../axiosConfig"
+import { Product } from "../types"
 
 export const useTrending = ()=>{
-    const [products,setProducts] = useState([])
-    const [loading,setLoading] = useState(true)
+    const [products,setProducts] = useState<Product[] | []>([])
+    const [loading,setLoading] = useState<boolean>(true)
     
 
 

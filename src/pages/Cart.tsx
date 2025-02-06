@@ -1,21 +1,19 @@
 import { useEffect, useState } from "react"
 import CartItem from "../components/Cart/CartItem"
 import { useCart } from "../hooks/useCart"
-import { useProduct } from "../hooks/useProduct"
 import { Button } from "@heroui/react"
 import { dbAxiosInstance } from "../axiosConfig"
 import { getUserId } from "../getUserId"
 import { useNavigate } from "react-router"
-import { isAuthorized } from "../isAuthorized"
+import { CartItem as CartItemType } from "../types" 
 
 
 export default function Cart() {
-  const userId = getUserId()
-  const userCart = useCart().cart
+  const userCart: CartItemType[] | [] = useCart().cart
   const {loading} = useCart()
-  const [cart, setCart] = useState([])
+  const [cart, setCart] = useState<CartItemType[] | []>([])
   const navigate = useNavigate()
-  const token = localStorage.getItem('token')
+  const token : string | null = localStorage.getItem('token')
 
   if(!token){
     navigate('/login')
@@ -26,13 +24,13 @@ export default function Cart() {
     setCart(userCart)
   }, [userCart])
 
-  const total = cart.reduce((acc, item) => {
+  const total = cart.reduce((acc, item):number => {
     return acc + (item.discount ? item.price*(1-item.discount/100) : item.price) * item.quantity
   }
   , 0)
 
   const purchase = async () => {
-    const userId = getUserId()
+    const userId : string | null = getUserId()
     const res = await dbAxiosInstance.post('purchase',{userId})
     if(res.status===200){
       setCart([])

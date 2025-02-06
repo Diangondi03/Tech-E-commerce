@@ -7,12 +7,13 @@ import { useEffect, useState } from "react"
 import { useCart } from "../hooks/useCart"
 
 
+
 export default function Product() {
     const {productId} = useParams()
     const { product, loading } = useProduct(productId)
 
-    const discountedPrice : number | undefined = product?.price * (1 - product?.discount / 100)
-    const capitalizedBrand : string | undefined = product?.brand.charAt(0).toUpperCase() + product?.brand.slice(1)
+    const discountedPrice : number | null = product && product?.price * (1 - (product?.discount ? product?.discount : 0) / 100)
+    const capitalizedBrand : string | null = product && product?.brand.charAt(0).toUpperCase() + product?.brand.slice(1)
     const userCart = useCart().cart
     const loadingCart = useCart().loading
     const [cart,setCart] = useState(userCart)
@@ -35,7 +36,7 @@ export default function Product() {
             </span>
             <Image
               src={product?.image}
-              alt={product?.name}
+              alt={product?.title}
               className="w-full h-full object-center z-10 aspect-[4/3] object-cover"
             />
           </div>
@@ -46,7 +47,7 @@ export default function Product() {
             <p className="mb-4">Brand: {capitalizedBrand}</p>
             <div className="flex items-baseline mb-4">
               <span className="text-2xl font-semibold text-purple-950 dark:text-purple-300">
-              ${product?.discount ? discountedPrice.toFixed(2) : product?.price.toFixed(2)}
+              ${discountedPrice ? discountedPrice.toFixed(2) : product?.price.toFixed(2)}
               </span>
               {product?.discount && (
                 <>
@@ -61,7 +62,7 @@ export default function Product() {
               
             </div>
           </div>
-          <AddToCartButton productId={productId} quantity={cart.find(item=>item?.productId===product?.id)?.quantity || 0}/>
+          <AddToCartButton productId={Number(productId)} quantity={cart.find(item=>item?.productId===product?.id)?.quantity || 0}/>
         </div>
       </div>
     </div>

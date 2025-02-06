@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router"
 
 const SearchBar = () => {
 
-    const [search, setSearch] = useState("")
+    const [search, setSearch] = useState<string>("")
     const location = useLocation();
 
 

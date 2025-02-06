@@ -11,7 +11,7 @@ export const dbAxiosInstance = axios.create({
 
 dbAxiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    const token : string | null = localStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

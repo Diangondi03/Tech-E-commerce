@@ -1,11 +1,12 @@
 import Fuse from "fuse.js";
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../axiosConfig";
+import { Product } from "../types";
 
 export const useSearch = (searchTerm:string|null)=>{
-    const [products,setProducts] = useState(null)
-    const [loading,setLoading] = useState(true)
-    const [filteredProducts,setFilteredProducts] = useState([])
+    const [products,setProducts] = useState<Product[] | null>(null)
+    const [loading,setLoading] = useState<boolean>(true)
+    const [filteredProducts,setFilteredProducts] = useState<Product[] | []>([])
     
 
 

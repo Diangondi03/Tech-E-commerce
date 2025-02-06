@@ -3,13 +3,11 @@ import Logo from "../assets/brand.png"
 import { BsCart2 } from "react-icons/bs";
 import { MdOutlineDarkMode,MdOutlineLightMode } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
-
 import SearchBar from "./SearchBar";
 import { Link, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import NavDropdown from "./NavDropdown";
 import NavMenu from "./NavMenu";
-import { getUserId } from "../getUserId";
 
 
 export default function AppNavbar() {
@@ -17,10 +15,10 @@ export default function AppNavbar() {
     const [isMenuOpen,setIsMenuOpen] = useState<boolean>(false)
 
     const navigate = useNavigate()
-    const token = localStorage.getItem("token")
+    const token : string | null = localStorage.getItem("token")
 
     useEffect(()=>{
-        const isItemDark = localStorage.getItem("theme") == '1'
+        const isItemDark : boolean = localStorage.getItem("theme") == '1'
         setIsDark(isItemDark)
     },[])
 

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import { axiosInstance, dbAxiosInstance } from "../axiosConfig"
 import { getUserId } from "../getUserId"
+import { CartItem } from "../types"
 
 export const useCart = ()=>{
-    const [cart,setCart] = useState([])
-    const userId = getUserId()
-    const [loading,setLoading] = useState(true)
+    const [cart,setCart] = useState<CartItem[] | []>([])
+    const userId : string | null  = getUserId()
+    const [loading,setLoading] = useState<boolean>(true)
 
     if(!userId){
         return {cart,loading:false}

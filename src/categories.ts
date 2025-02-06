@@ -1,1 +1,1 @@
-export const categories = ["TV","Audio","Mobile","Laptop","Gaming","Appliances"]
+export const categories : string[] = ["TV","Audio","Mobile","Laptop","Gaming","Appliances"]
