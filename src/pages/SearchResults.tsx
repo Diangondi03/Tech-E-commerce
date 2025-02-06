@@ -31,11 +31,11 @@ const SearchResults = () => {
             {filteredProducts===null && !loading && <h1 className='text-center text-4xl my-6'>No results found for: {searchQuery}</h1>}
             {filteredProducts?.length>0 && <h1 className=' text-center text-4xl my-6'>Results for: {searchQuery}</h1>}
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 p-6">
-                {loading && loadingCart && Array.from({length: 3}).map((_,index)=>(
+                {(loading || loadingCart) && Array.from({length: 3}).map((_,index)=>(
                 <ProductCardSkeleton/>
                 ))}
         
-                {!loading && filteredProducts.map((product,index)=>(
+                {!loading && !loadingCart && filteredProducts.map((product,index)=>(
                 <ProductCard 
                 key={index}
                 imageUrl={product?.image}

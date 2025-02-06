@@ -5,12 +5,22 @@ import { useProduct } from "../hooks/useProduct"
 import { Button } from "@heroui/react"
 import { dbAxiosInstance } from "../axiosConfig"
 import { getUserId } from "../getUserId"
+import { useNavigate } from "react-router"
+import { isAuthorized } from "../isAuthorized"
 
 
 export default function Cart() {
+  const userId = getUserId()
   const userCart = useCart().cart
   const {loading} = useCart()
   const [cart, setCart] = useState([])
+  const navigate = useNavigate()
+  const token = localStorage.getItem('token')
+
+  if(!token){
+    navigate('/login')
+  }
+
 
   useEffect(() => {
     setCart(userCart)
@@ -26,6 +36,9 @@ export default function Cart() {
     const res = await dbAxiosInstance.post('purchase',{userId})
     if(res.status===200){
       setCart([])
+    }
+    else{
+      navigate("/login")
     }
   }
 

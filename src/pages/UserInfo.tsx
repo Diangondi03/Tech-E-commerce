@@ -12,6 +12,8 @@ export default function UserInfo() {
   const [user, setUser] = useState({name: "", email: "", password: ""})
   const userId = getUserId()
   const navigate = useNavigate()
+  const token = localStorage.getItem("token")
+
 
   useEffect(() => {
     setUser({...userInfo,password:""})
@@ -28,9 +30,16 @@ export default function UserInfo() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError(null)
+    if(!token){
+      navigate("login")
+    }
     try {
 
-      await dbAxiosInstance.put(`update-user/${userId}`,user)
+      const res = await dbAxiosInstance.put(`update-user/${userId}`,user)
+      if(res.status===403 || res.status===401){
+        navigate("/login")
+        return
+      }
       window.location.reload()
     } catch (err) {
       setError(err instanceof Error ? err.message : "An unexpected error occurred")
@@ -38,6 +47,7 @@ export default function UserInfo() {
   }
 
   const handleLogOut = async () => {
+    
     localStorage.removeItem("token")
     navigate("/login")
   }

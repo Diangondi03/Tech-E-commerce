@@ -5,6 +5,7 @@ import { BiCart, BiMinus, BiPlus } from 'react-icons/bi'
 import { useCart } from '../hooks/useCart'
 import { dbAxiosInstance } from '../axiosConfig'
 import { getUserId } from '../getUserId'
+import { useNavigate } from 'react-router'
 
 type AddToCartButtonProps = {
     productId: number,
@@ -14,27 +15,57 @@ type AddToCartButtonProps = {
 const AddToCartButton = ({productId,quantity}:AddToCartButtonProps) => {
     const [productQuantity, setProductQuantity] = useState(quantity)
     const userId = getUserId()
+    const navigate = useNavigate()
+    const token = localStorage.getItem("token")
 
     const handleAddToCart = async() => {
-        
-        setProductQuantity(1)
-        await dbAxiosInstance.post("add-product",{userId,productId})
+        if(!token){
+            navigate("/login")
+            return
+        }
+        try{
+
+            setProductQuantity(1)
+            const res = await dbAxiosInstance.post("add-product",{userId,productId})
+            if(res.status===403 || res.status===401){
+                navigate("/login")
+            }
+        }
+        catch(err){
+            console.log(err)
+        }
     }
     //type == true ? increment : decrement
     const updateQuantity = async(type) => {
-        if(type && productQuantity===100) return
-        if(!type && productQuantity===0){
-            await dbAxiosInstance.post("remove-product",{userId,productId})
-            setProductQuantity(0)
+        if(!token){
+            navigate("/login")
             return
         }
-        if(productQuantity<=100){
-            setProductQuantity(prev=>type?prev+1:prev-1)
+        try{
 
-            await dbAxiosInstance.post('update-product-quantity',{userId,productId:productId,quantity:(type ? productQuantity+1 : productQuantity-1)})
+            if(type && productQuantity===100) return
+            if(!type && productQuantity===0){
+                const res = await dbAxiosInstance.post("remove-product",{userId,productId})
+                if(res.status===403 || res.status===401){
+                    navigate("/login")
+                }
+                setProductQuantity(0)
+                return
+            }
+            if(productQuantity<=100){
+                setProductQuantity(prev=>type?prev+1:prev-1)
+        
+                const res = await dbAxiosInstance.post('update-product-quantity',{userId,productId:productId,quantity:(type ? productQuantity+1 : productQuantity-1)})
+                if(res.status===403 || res.status===401){
+                    navigate("/login")
+                }
+            }
+        }
+        catch(err){
+            console.log(err)
         }
     }
-
+    
     return (
         <>
         {productQuantity==0 ? (

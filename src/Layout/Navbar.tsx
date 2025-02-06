@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import NavDropdown from "./NavDropdown";
 import NavMenu from "./NavMenu";
+import { getUserId } from "../getUserId";
 
 
 export default function AppNavbar() {
@@ -16,15 +17,23 @@ export default function AppNavbar() {
     const [isMenuOpen,setIsMenuOpen] = useState<boolean>(false)
 
     const navigate = useNavigate()
+    const token = localStorage.getItem("token")
 
     useEffect(()=>{
         const isItemDark = localStorage.getItem("theme") == '1'
         setIsDark(isItemDark)
     },[])
 
+
     
     const Icons = [
-        {icon:BsCart2, tooltip:"Cart",action:()=>{navigate("/cart")}}, 
+        {icon:BsCart2, tooltip:"Cart",action:()=>{
+            if(!token){
+                navigate("/login")
+                return
+            }
+            navigate("/cart")
+        }}, 
         {icon:isDark ? MdOutlineLightMode : MdOutlineDarkMode, tooltip:"Dark Mode",action:()=>{
             const theme : string | null = localStorage.getItem("theme")
             document.querySelector("html")?.classList.toggle("dark")
@@ -37,7 +46,14 @@ export default function AppNavbar() {
                 setIsDark(true)
             }
         }}, 
-        {icon:FaRegUser, tooltip:"Profile",action:()=>{navigate("/user")}}
+        {icon:FaRegUser, tooltip:"Profile",action:()=>{
+
+            if (!token) {
+              navigate("/login")
+              return
+            }
+            navigate("/user")
+        }}
     ]
 
     

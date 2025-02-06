@@ -110,7 +110,7 @@ app.get('/get-user/:id',verifyToken, async (req, res) => {
       res.status(404).send('User not found');
     } else {
       const userData = doc.data();
-      res.send(userData);
+      res.status(200).send(userData);
     }
   } catch (error) {
     console.error('Error getting user: ', error);
@@ -119,7 +119,7 @@ app.get('/get-user/:id',verifyToken, async (req, res) => {
 });
 
 // Define a route to update a user by ID
-app.put('/update-user/:id', async (req, res) => {
+app.put('/update-user/:id',verifyToken, async (req, res) => {
   const userId = req.params.id;
   const { name,email, password } = req.body;
 
@@ -133,7 +133,7 @@ app.put('/update-user/:id', async (req, res) => {
       await docRef.update({ name,email });
     }
 
-    res.send('User updated successfully');
+    res.status(200).send('User updated successfully');
   } catch (error) {
     console.error('Error updating user: ', error);
     res.status(500).send('Server Error');
@@ -163,7 +163,7 @@ app.post('/add-product',verifyToken, async (req, res) => {
     }
 
     await userRef.update({ cart });
-    res.send('Product added to cart successfully');
+    res.status(200).send('Product added to cart successfully');
   } catch (error) {
     console.error('Error adding product to cart: ', error);
     res.status(500).send('Server Error');
@@ -186,7 +186,7 @@ app.post('/remove-product',verifyToken, async (req, res) => {
     const updatedCart = cart.filter(item => item.productId !== productId);
 
     await userRef.update({ cart: updatedCart });
-    res.send('Product removed from cart successfully');
+    res.status(200).send('Product removed from cart successfully');
   } catch (error) {
     console.error('Error removing product from cart: ', error);
     res.status(500).send('Server Error');
@@ -213,12 +213,12 @@ app.post('/update-product-quantity',verifyToken, async (req, res) => {
         const updatedCart = cart.filter(item => item.productId !== productId);
 
         await userRef.update({ cart: updatedCart });
-        return res.send('Product removed from cart successfully');
+        return res.status(200).send('Product removed from cart successfully');
       }
       cart[productIndex].quantity = quantity;
 
       await userRef.update({ cart });
-      res.send('Product quantity updated successfully');
+      res.status(200).send('Product quantity updated successfully');
     } else {
       res.status(404).send('Product not found in cart');
     }
@@ -250,7 +250,7 @@ app.post('/purchase',verifyToken, async (req, res) => {
 
     // Clear the cart after purchase
     await userRef.update({ cart: [] });
-    res.send('Purchase successful and cart cleared');
+    res.status(200).send('Purchase successful and cart cleared');
   } catch (error) {
     console.error('Error processing purchase: ', error);
     res.status(500).send('Server Error');

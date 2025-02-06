@@ -7,7 +7,9 @@ export const useCart = ()=>{
     const userId = getUserId()
     const [loading,setLoading] = useState(true)
 
-
+    if(!userId){
+        return {cart,loading:false}
+    }
 
     useEffect(()=>{
         const fetchUserCart = async()=>{

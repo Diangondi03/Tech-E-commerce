@@ -9,38 +9,65 @@ import { dbAxiosInstance } from "../../axiosConfig"
 export default function CartItem({product,setCart}) {
   const navigate = useNavigate()
   const userId = getUserId()
-
+  const token = localStorage.getItem("token")
 
   const discountedPrice = (product?.price*(1-product?.discount/100)).toFixed(2)
 
   //type = true for increase, false for decrease
   const updateQuantity = async (type:boolean)=>{
-    if(type && product?.quantity>=100) return
-    
-    if(!type && product?.quantity===1){
+    if(!token){
+      navigate("/login")
+      return
+    }
+    try{
+
+      if(type && product?.quantity>=100) return
+      
+      if(!type && product?.quantity===1){
 
       setCart(prev=>prev.filter(item=>item.productId!==product?.id))
-      await dbAxiosInstance.post('remove-product',{userId,productId:product?.id})
+      await removeProduct()
       return
     }
 
-    if(product?.quantity<=100){
-      setCart(prev=>{
+      if(product?.quantity<=100){
+        setCart(prev=>{
           return prev.map(item=>{
-              if(item.productId === product?.id){
-                  return {...item,quantity:type?product?.quantity+1:product?.quantity-1}
-              }
-              return item
+                if(item.productId === product?.id){
+                    return {...item,quantity:type?product?.quantity+1:product?.quantity-1}
+                }
+                return item
+              })
           })
-      })
-      await dbAxiosInstance.post('update-product-quantity',{userId,productId:product?.id,quantity:type?product?.quantity+1:product?.quantity-1})
+        const res = await dbAxiosInstance.post('update-product-quantity',{userId,productId:product?.id,quantity:type?product?.quantity+1:product?.quantity-1})
+        if(res.status===403 || res.status===401){
+          navigate("/login")
+        }
+      }
     }
+    catch(err){
+      console.log(err)
+      navigate("/login")
+    } 
 
   }
 
   const removeProduct = async ()=>{
-    setCart(prev=>prev.filter(item=>item.productId!==product?.id))
-    await dbAxiosInstance.post('remove-product',{userId,productId:product?.id})
+    if(!token){
+      navigate("/login")
+      return
+    }
+    try{
+
+      setCart(prev=>prev.filter(item=>item.productId!==product?.id))
+      const res = await dbAxiosInstance.post('remove-product',{userId,productId:product?.id})
+      if(res.status===403 || res.status===401){
+        navigate("/login")
+      }
+    }
+    catch(err){
+
+    }
   }
 
 

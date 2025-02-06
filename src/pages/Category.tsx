@@ -28,7 +28,7 @@ const Category = () => {
     <>
     <h1 className='text-center text-4xl my-6'>{categoryType}</h1>
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 p-6">
-      {(loading && loadingCart) && Array.from({length: 3}).map((_,index)=>(
+      {(loading || loadingCart) && Array.from({length: 3}).map((_,index)=>(
         <ProductCardSkeleton/>
       ))}
 
