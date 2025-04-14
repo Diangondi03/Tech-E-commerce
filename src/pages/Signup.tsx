@@ -68,7 +68,7 @@ export default function Signup() {
               onChange={handleChange}
               required
               validate={(value) => {
-                if (value.length < 8) {
+                if (value.length < 3) {
                   return "Name must be at least 3 characters long";
                 }
               }}
